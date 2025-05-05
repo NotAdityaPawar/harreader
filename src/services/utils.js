@@ -24,6 +24,14 @@ export const sortRows = (rows, condition) => {
                 const timeB = parseFloat(b.time);
                 return timeB - timeA;
             });
+
+        case "ID":
+            console.log("in the id")
+            return rows.sort((a, b) => {
+                const idA = a.id;
+                const idB = b.id;
+                return idB - idA;
+            });
         default:
             return rows
 

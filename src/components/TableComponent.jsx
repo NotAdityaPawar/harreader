@@ -29,6 +29,11 @@ export default function TableComponent({ columns, rows }) {
                 setSortBy(text);
                 setTableRows([...sortRows(rows.slice(), text)]);
                 break;
+
+            case "ID":
+                setSortBy(text);
+                setTableRows([...sortRows(rows.slice(), text)]);
+                break;
             default:
                 console.log("doing nothing")
         }
