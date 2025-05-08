@@ -4,6 +4,7 @@ import { formatSize, formatTime, sortRows } from "../services/utils"
 export default function TableComponent({ columns, rows }) {
     const [tableRows, setTableRows] = useState(rows);
     const [sortBy, setSortBy] = useState(null);
+    const [isAscending, setIsAscending] = useState(true);
 ``
     const [toggle, setToggle] = useState(false);
     const [rowData, setRowData] = useState({});
@@ -19,20 +20,21 @@ export default function TableComponent({ columns, rows }) {
 
     const handleClick = (event) => {
         let text = (event.target.innerText)
+        setIsAscending(!isAscending);
 
         switch (text){
             case "Time":
                 setSortBy(text);
-                setTableRows([...sortRows(rows.slice(), text)]);
+                setTableRows([...sortRows(rows.slice(), text, isAscending)]);
                 break;
             case "Size":
                 setSortBy(text);
-                setTableRows([...sortRows(rows.slice(), text)]);
+                setTableRows([...sortRows(rows.slice(), text, isAscending)]);
                 break;
 
             case "ID":
                 setSortBy(text);
-                setTableRows([...sortRows(rows.slice(), text)]);
+                setTableRows([...sortRows(rows.slice(), text, isAscending)]);
                 break;
             default:
                 console.log("doing nothing")
@@ -74,7 +76,10 @@ export default function TableComponent({ columns, rows }) {
                 <thead>
                     <tr>
                         {columns.map((item, index) => (
-                            <th key={index} onClick={handleClick}>
+                            <th key={index} 
+                                onClick={handleClick}
+                                className="hover:cursor-pointer"    
+                            >
                                 {item}
                             </th>
                         ))}
@@ -84,7 +89,7 @@ export default function TableComponent({ columns, rows }) {
                     {/* rows with expandable details */}
                     {tableRows.map((item, index) => (
                         <>
-                            <tr key={`row-${index}`} onClick={handleShow} className="hover:cursor-pointer bg-white-200">
+                            <tr key={`row-${index}`} onClick={handleShow} className= {`hover:cursor-pointer ${index%2===0?'bg-white':'bg-gray-100'}`}>
                                 <td>{item?.id}</td>
                                 <td>{item?.request?.url}</td>
                                 <td>{item?.response?.status}</td>

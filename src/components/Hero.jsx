@@ -1,6 +1,7 @@
 import { useState } from "react"
 import TableComponent from "./TableComponent";
 
+
 export default function Hero() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [entries, setEntries] = useState([]);
@@ -53,6 +54,7 @@ export default function Hero() {
             {isLoaded && <div className="space-y-4 p-2">
 
                 <TableComponent columns={columns} rows={entries}/>
+                
 
             </div>}
         </div>

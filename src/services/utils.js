@@ -9,20 +9,20 @@ export const formatSize = (size) =>{
 }
 
 
-export const sortRows = (rows, condition) => {
+export const sortRows = (rows, condition, isAscending) => {
 
     switch (condition){
         case "Size":
             return rows.sort((a, b) => {
                 const sizeA = a.response.content.size;
                 const sizeB = b.response.content.size;
-                return sizeB - sizeA;
+                return isAscending ? sizeB - sizeA : sizeA - sizeB;
             });
         case "Time":
             return rows.sort((a, b) => {
                 const timeA = parseFloat(a.time);
                 const timeB = parseFloat(b.time);
-                return timeB - timeA;
+                return isAscending ? timeB - timeA: timeA - timeB;
             });
 
         case "ID":
@@ -30,7 +30,7 @@ export const sortRows = (rows, condition) => {
             return rows.sort((a, b) => {
                 const idA = a.id;
                 const idB = b.id;
-                return idB - idA;
+                return isAscending ? idB - idA: idA - idB;
             });
         default:
             return rows
